@@ -35,6 +35,7 @@ export default class ProjectController {
         return this.projectService.create(data, user);
     }
 
+    @HttpCode(201)
     @Post('/:id/comment')
     public createComment(@Param('id') id: number, @Body() data: ProjectDto, @CurrentUser() user: User) {
         return this.commentService.create(id, data, user);
