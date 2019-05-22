@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "1594515a-4136-4123-961a-3945c1f5ca0a",
+		"name": "CS-Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Pan Staszek\",\n\t\"email\": \"staszekmorderca@killer1.com\",\n\t\"password\": \"johnWick\"\n}"
+						},
+						"url": {
+							"raw": "0.0.0.0:3000/api/auth/registration",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"staszekmorderca@killer1.com\",\n\t\"password\": \"johnWick\"\n}"
+						},
+						"url": {
+							"raw": "0.0.0.0:3000/api/auth/login",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjcsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDcwOTY5LCJleHAiOjE1NTg1NTczNjl9.NwjVr9JvKvoCejg4BMd9TC6_wGaMGoh4Wyl9zFHKkcM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "0.0.0.0:3000/api/auth/logout",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDc5NDYwLCJleHAiOjE1NTg1NjU4NjB9.tUQ_mhdhBHDT-lDLrEP8R0KqwW5DJQgvgldUlBB5laU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"My project\",\n\t\"description\": \"<script>alert('hee');</script>\",\n\t\"status\": 1\n}"
+						},
+						"url": {
+							"raw": "0.0.0.0:3000/api/project",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDc5NDYwLCJleHAiOjE1NTg1NjU4NjB9.tUQ_mhdhBHDT-lDLrEP8R0KqwW5DJQgvgldUlBB5laU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "0.0.0.0:3000/api/project/1",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjcsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDczMDI4LCJleHAiOjE1NTg1NTk0Mjh9.V5swBiLyPQ6mfdHjDCVIJaB9i5Th3iyhFYNRHe_5BPI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "0.0.0.0:3000/api/project",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read with status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:3000/api/project?status=published",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "published"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDgxNDcyLCJleHAiOjE1NTg1Njc4NzJ9.XAMRiHeYQMcbZ5iLlq8i6ZgIZgPFuQCrrAbARCHO4NU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "0.0.0.0:3000/api/project/1/comment",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project",
+								"1",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"nice project\",\n\t\"projectId\": 1\n}"
+						},
+						"url": {
+							"raw": "0.0.0.0:3000/api/comment",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDgxNDcyLCJleHAiOjE1NTg1Njc4NzJ9.XAMRiHeYQMcbZ5iLlq8i6ZgIZgPFuQCrrAbARCHO4NU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "0.0.0.0:3000/api/comment",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDgxNDcyLCJleHAiOjE1NTg1Njc4NzJ9.XAMRiHeYQMcbZ5iLlq8i6ZgIZgPFuQCrrAbARCHO4NU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "0.0.0.0:3000/api/comment/1",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDgxOTc0LCJleHAiOjE1NTg1NjgzNzR9.TdpEJCDHZIlN02Fcyhf4kuYPcud3nkF5oaPZpqPaMo8",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"very nice project!\"\n}"
+						},
+						"url": {
+							"raw": "0.0.0.0:3000/api/comment/1",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
