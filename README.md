@@ -1,7 +1,8 @@
-# Awesome Project Build with TypeORM
+# Setup
 
 Steps to run this project:
 
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
+1. cd <root_project_dir>/tools/docker
+2. docker-compose up -d
+
+after docker initialization, the app should be accessible through 0.0.0.0:3000

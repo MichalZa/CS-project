@@ -18,6 +18,7 @@ import AuthMiddleware from './../middleware/AuthMiddleware';
 import User from '../entity/User';
 import ProjectDto from '../dto/ProjectDto';
 import CommentService from '../service/CommentService';
+import CommentDto from '../dto/CommentDto';
 
 @UseBefore(AuthMiddleware)
 @JsonController('/project')
@@ -37,7 +38,7 @@ export default class ProjectController {
 
     @HttpCode(201)
     @Post('/:id/comment')
-    public createComment(@Param('id') id: number, @Body() data: ProjectDto, @CurrentUser() user: User) {
+    public createComment(@Param('id') id: number, @Body() data: CommentDto, @CurrentUser() user: User) {
         return this.commentService.create(id, data, user);
     }
 
