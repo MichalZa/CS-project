@@ -7,6 +7,7 @@ import ProjectRepository from '../repository/ProjectRepository';
 import SecurityService from './SecurityService';
 import Comment from '../entity/Comment';
 import Project from '../entity/Project';
+import { filterXSS } from 'xss';
 
 @Service()
 export default class CommentService {
@@ -21,7 +22,7 @@ export default class CommentService {
     public async create(id: number, data: CommentDto, user: User) {
         const project: Project = await this.projectRepository.findOneOrFail(id);
         const comment: Comment = await this.commentRepository.save({
-            content: data.text,
+            content: filterXSS(data.text),
             project: project,
             user: user,
             createdAt: new Date(),
@@ -39,7 +40,7 @@ export default class CommentService {
         const comment: Comment = await this.getById(id, user);
 
         return this.commentRepository.update(comment, {
-            content: data.text,
+            content: filterXSS(data.text),
             updatedAt: new Date()
         });
     }

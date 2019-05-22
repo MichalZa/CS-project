@@ -6,6 +6,7 @@ import SecurityService from './SecurityService';
 import ProjectDto from '../dto/ProjectDto';
 import Project, { status as ProjectStatus } from './../entity/Project';
 import CommentRepository from '../repository/CommentRepository';
+import { filterXSS } from 'xss';
 
 @Service()
 export default class ProjectService {
@@ -20,7 +21,7 @@ export default class ProjectService {
     public async create(data: ProjectDto, user: User) {
         const project: Project = await this.projectRepository.save({
             title: data.title,
-            description: data.description,
+            description: filterXSS(data.description),
             status: data.status,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -48,7 +49,7 @@ export default class ProjectService {
         const project: Project = await this.getById(id, user);
 
         return this.projectRepository.update(project, {
-            title: data.title,
+            title: filterXSS(data.title),
             description: data.description,
             status: data.status,
             updatedAt: new Date()
