@@ -8,7 +8,7 @@
       "test": "echo \"Error: no test specified\" && exit 1",
       "start-dev": "NODE_ENV=dev node build/server.js",
       "start": "ts-node src/index.ts",
-      "dev": "npm install && npm run migrate && npm run build && npm run start-dev",
+      "dev": "npm install && sleep 10s && npm run migrate && npm run build && npm run start-dev",
       "migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
       "build": "./node_modules/typescript/bin/tsc"
    },
