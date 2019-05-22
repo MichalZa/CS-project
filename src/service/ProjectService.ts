@@ -1,10 +1,9 @@
 import { Service, Inject } from 'typedi';
-import ProjectNewDto from '../dto/ProjectNewDto';
 import User from '../entity/User';
 import ProjectRepository from '../repository/ProjectRepository';
 import { InjectRepository } from 'typeorm-typedi-extensions';;
 import SecurityService from './SecurityService';
-import ProjectUpdateDto from '../dto/ProjectUpdateDto';
+import ProjectDto from '../dto/ProjectDto';
 import Project, { status as ProjectStatus } from './../entity/Project';
 import CommentRepository from '../repository/CommentRepository';
 
@@ -18,7 +17,7 @@ export default class ProjectService {
     @Inject()
     private readonly securityService: SecurityService;
 
-    public async create(data: ProjectNewDto, user: User) {
+    public async create(data: ProjectDto, user: User) {
         const project: Project = await this.projectRepository.save({
             title: data.title,
             description: data.description,
@@ -45,7 +44,7 @@ export default class ProjectService {
         return this.commentRepository.find({ project })
     }
 
-    public async update(id: number, data: ProjectUpdateDto, user: User) {
+    public async update(id: number, data: ProjectDto, user: User) {
         const project: Project = await this.getById(id, user);
 
         return this.projectRepository.update(project, {
