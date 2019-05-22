@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1594515a-4136-4123-961a-3945c1f5ca0a",
+		"_postman_id": "08a8739b-e964-40ea-866c-6b79a4e83665",
 		"name": "CS-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -87,6 +87,10 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "0.0.0.0:3000/api/auth/logout",
 							"host": [
@@ -159,6 +163,10 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "0.0.0.0:3000/api/project/1",
 							"host": [
@@ -188,6 +196,10 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "0.0.0.0:3000/api/project",
 							"host": [
@@ -210,6 +222,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "0.0.0.0:3000/api/project?status=published",
 							"host": [
@@ -244,6 +260,10 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "0.0.0.0:3000/api/project/1/comment",
 							"host": [
@@ -278,6 +298,11 @@
 								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjIsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NTM0NTIzLCJleHAiOjE1NTg2MjA5MjN9.eVc194EkBOVBKOtZmMx7-d81_BXes1u2kalfxRlCylM",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -285,7 +310,7 @@
 							"raw": "{\n\t\"text\": \"nice project\",\n\t\"projectId\": 1\n}"
 						},
 						"url": {
-							"raw": "0.0.0.0:3000/api/comment",
+							"raw": "0.0.0.0:3000/api/project/1/comment",
 							"host": [
 								"0",
 								"0",
@@ -295,6 +320,8 @@
 							"port": "3000",
 							"path": [
 								"api",
+								"project",
+								"1",
 								"comment"
 							]
 						}
@@ -308,10 +335,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDgxNDcyLCJleHAiOjE1NTg1Njc4NzJ9.XAMRiHeYQMcbZ5iLlq8i6ZgIZgPFuQCrrAbARCHO4NU",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjIsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NTM0NTIzLCJleHAiOjE1NTg2MjA5MjN9.eVc194EkBOVBKOtZmMx7-d81_BXes1u2kalfxRlCylM",
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "0.0.0.0:3000/api/comment",
 							"host": [
@@ -336,10 +367,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDgxNDcyLCJleHAiOjE1NTg1Njc4NzJ9.XAMRiHeYQMcbZ5iLlq8i6ZgIZgPFuQCrrAbARCHO4NU",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjIsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NTM0NTIzLCJleHAiOjE1NTg2MjA5MjN9.eVc194EkBOVBKOtZmMx7-d81_BXes1u2kalfxRlCylM",
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "0.0.0.0:3000/api/comment/1",
 							"host": [
@@ -365,7 +400,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NDgxOTc0LCJleHAiOjE1NTg1NjgzNzR9.TdpEJCDHZIlN02Fcyhf4kuYPcud3nkF5oaPZpqPaMo8",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjIsImVtYWlsIjoic3Rhc3pla21vcmRlcmNhQGtpbGxlcjEuY29tIiwiaWF0IjoxNTU4NTM0NTIzLCJleHAiOjE1NTg2MjA5MjN9.eVc194EkBOVBKOtZmMx7-d81_BXes1u2kalfxRlCylM",
 								"type": "text"
 							},
 							{
@@ -380,7 +415,7 @@
 							"raw": "{\n\t\"text\": \"very nice project!\"\n}"
 						},
 						"url": {
-							"raw": "0.0.0.0:3000/api/comment/1",
+							"raw": "0.0.0.0:3000/api/comment/2",
 							"host": [
 								"0",
 								"0",
@@ -391,7 +426,7 @@
 							"path": [
 								"api",
 								"comment",
-								"1"
+								"2"
 							]
 						}
 					},
