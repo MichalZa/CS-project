@@ -1,6 +1,6 @@
 import { IsString, MinLength, MaxLength, IsInt } from 'class-validator';
 
-export default class ProjectNewDto {
+export default class ProjectDto {
 
     @IsString()
     @MinLength(5, {

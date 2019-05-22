@@ -1,11 +1,10 @@
 import { Service, Inject } from 'typedi';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import CommentRepository from '../repository/CommentRepository';
-import CommentNewDto from '../dto/CommentNewDto';
+import CommentDto from '../dto/CommentDto';
 import User from '../entity/User';
 import ProjectRepository from '../repository/ProjectRepository';
 import SecurityService from './SecurityService';
-import CommentUpdateDto from '../dto/CommentUpdateDto';
 import Comment from '../entity/Comment';
 import Project from '../entity/Project';
 
@@ -19,8 +18,8 @@ export default class CommentService {
     @Inject()
     private readonly securityService: SecurityService;
     
-    public async create(data: CommentNewDto, user: User) {
-        const project: Project = await this.projectRepository.findOneOrFail(data.projectId);
+    public async create(id: number, data: CommentDto, user: User) {
+        const project: Project = await this.projectRepository.findOneOrFail(id);
         const comment: Comment = await this.commentRepository.save({
             content: data.text,
             project: project,
@@ -36,7 +35,7 @@ export default class CommentService {
         return this.commentRepository.getAllWithAuthors();
     }
 
-    public async update(id: number, data: CommentUpdateDto, user: User) {
+    public async update(id: number, data: CommentDto, user: User) {
         const comment: Comment = await this.getById(id, user);
 
         return this.commentRepository.update(comment, {
