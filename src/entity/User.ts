@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
 import * as conf from 'nconf';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Comment from './Comment';
 import Project from './Project';
 
@@ -8,45 +8,45 @@ import Project from './Project';
 export default class User {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({
         type: 'varchar',
         name: 'name',
-        length: 255
+        length: 255,
     })
-    name: string;
+    public name: string;
 
     @Column({
         type: 'varchar',
         name: 'email',
-        length: 255
+        length: 255,
     })
-    email: string;
+    public email: string;
 
     @Column({
         type: 'varchar',
-        length: 255
+        length: 255,
     })
-    password: string;
+    public password: string;
 
     @Column({
-        type: 'simple-array'
+        type: 'simple-array',
     })
-    role: string[];
+    public role: string[];
 
     @OneToMany(type => Project, project => project.user)
-    projects: Project[];
+    public projects: Project[];
 
     @OneToMany(type => Comment, comment => comment.user)
-    comments: Comment[];
+    public comments: Comment[];
 
     public generateAuthToken() {
         const config = conf.get('jwt');
         const token = jwt.sign({
             _id: this.id,
             email: this.email,
-        }, config.signature, { expiresIn: config.expiresIn })
+        }, config.signature, { expiresIn: config.expiresIn });
 
         return token;
     }

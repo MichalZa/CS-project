@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, Timestamp } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
 import Project from './Project';
 import User from './User';
 
@@ -6,29 +6,29 @@ import User from './User';
 export default class Comment {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({
         type: 'text',
-        name: 'content'
+        name: 'content',
     })
-    content: string;
+    public content: string;
 
     @Column({
         type: 'timestamp',
-        name: 'created_at'
+        name: 'created_at',
     })
-    createdAt: Timestamp;
+    public createdAt: Timestamp;
 
     @Column({
         type: 'timestamp',
         name: 'updated_at',
     })
-    updatedAt: Timestamp;
+    public updatedAt: Timestamp;
 
     @ManyToOne(type => User, user => user.comments)
-    user: User;
+    public user: User;
 
     @ManyToOne(type => Project, project => project.comments)
-    project: Project;
+    public project: Project;
 }

@@ -1,24 +1,24 @@
 import {
-    JsonController,
-    Post,
-    Get,
-    Put,
-    Delete,
-    HttpCode,
-    Param,
-    Body,
-    UseBefore,
-    CurrentUser,
     Authorized,
-    QueryParam
+    Body,
+    CurrentUser,
+    Delete,
+    Get,
+    HttpCode,
+    JsonController,
+    Param,
+    Post,
+    Put,
+    QueryParam,
+    UseBefore,
  } from 'routing-controllers';
 import { Inject } from 'typedi';
-import ProjectService from './../service/ProjectService';
-import AuthMiddleware from './../middleware/AuthMiddleware';
-import User from '../entity/User';
-import ProjectDto from '../dto/ProjectDto';
-import CommentService from '../service/CommentService';
 import CommentDto from '../dto/CommentDto';
+import ProjectDto from '../dto/ProjectDto';
+import User from '../entity/User';
+import CommentService from '../service/CommentService';
+import AuthMiddleware from './../middleware/AuthMiddleware';
+import ProjectService from './../service/ProjectService';
 
 @UseBefore(AuthMiddleware)
 @JsonController('/project')
@@ -28,7 +28,7 @@ export default class ProjectController {
     private readonly projectService: ProjectService;
     @Inject()
     private readonly commentService: CommentService;
-    
+
     @Authorized('ROLE_OWNER')
     @HttpCode(201)
     @Post('/')

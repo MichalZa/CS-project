@@ -1,53 +1,53 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, Timestamp, OneToMany } from 'typeorm';
-import User from './User'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
 import Comment from './Comment';
+import User from './User';
 
 @Entity()
 export default class Project {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({
         type: 'varchar',
         name: 'title',
-        length: 255
+        length: 255,
     })
-    title: string;
+    public title: string;
 
     @Column({
         type: 'text',
         name: 'description',
     })
-    description: string;
+    public description: string;
 
     @Column({
         type: 'integer',
-        name: 'status'
+        name: 'status',
     })
-    status: number;
+    public status: number;
 
     @Column({
         type: 'timestamp',
-        name: 'created_at'
+        name: 'created_at',
     })
-    createdAt: Timestamp;
+    public createdAt: Timestamp;
 
     @Column({
         type: 'timestamp',
         name: 'updated_at',
     })
-    updatedAt: Timestamp;
+    public updatedAt: Timestamp;
 
     @ManyToOne(type => User, user => user.projects)
-    user: User;
+    public user: User;
 
     @OneToMany(type => Comment, comment => comment.project)
-    comments: Comment[];
+    public comments: Comment[];
 
 }
 
 export const status = {
     unpublished: 0,
-    published: 1
+    published: 1,
 };

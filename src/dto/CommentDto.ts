@@ -1,4 +1,4 @@
-import { IsString, MinLength, IsInt } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 
 export default class CommentDto {
 
@@ -7,5 +7,4 @@ export default class CommentDto {
         message: 'Comment is too short. Minimal value is $constraintl'
     })
     public text: string;
-    
 }

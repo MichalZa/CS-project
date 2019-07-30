@@ -1,12 +1,12 @@
+import * as jwt from 'jsonwebtoken';
+import * as _ from 'lodash';
+import * as conf from 'nconf';
+import { NotFoundError } from 'routing-controllers';
 import { Inject, Service } from 'typedi';
+import { InjectRepository } from 'typeorm-typedi-extensions';
 import User from './../entity/User';
 import TokenRepository from './../repository/redis/TokenRepository';
-import * as jwt from 'jsonwebtoken';
-import * as conf from 'nconf';
 import UserRepository from './../repository/UserRepository';
-import { NotFoundError } from 'routing-controllers';
-import { InjectRepository } from 'typeorm-typedi-extensions';
-import * as _ from 'lodash';
 
 @Service()
 export default class JwtService {
@@ -47,7 +47,7 @@ export default class JwtService {
             return false;
         }
 
-        const user: User = await this.userRepository.findOneOrFail({ email: verifiedToken.email }).catch((error: any) => {
+        const user: User = await this.userRepository.findOneOrFail({ email: verifiedToken.email }).catch(() => {
             throw new NotFoundError('User does not exist');
         });
         const exists: boolean = await this.checkIfExists(user, token);

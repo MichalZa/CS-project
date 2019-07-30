@@ -1,4 +1,4 @@
-import { Service, Inject } from 'typedi';
+import { Inject, Service } from 'typedi';
 import { Logger } from 'winston';
 import AppError from './type/AppError';
 

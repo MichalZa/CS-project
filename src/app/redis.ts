@@ -1,14 +1,13 @@
-import { get } from 'nconf'
-import { RedisClient, createClient } from 'redis';
+import { get } from 'nconf';
+import { createClient, RedisClient } from 'redis';
 import { Container } from 'typedi';
 
 export default () => {
-    const config = get('redis')
+    const config = get('redis');
     const redisClient: RedisClient = createClient({
         host: config.host,
         port: config.port,
-        //password: config.password
     });
-    
+
     Container.set('redis', redisClient);
-}
+};

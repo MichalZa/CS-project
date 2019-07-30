@@ -1,9 +1,9 @@
-import User from './../../entity/User';
-import { RedisClient } from 'redis';
-import { Inject } from 'typedi';
+import * as _ from 'lodash';
 import * as md5 from 'md5';
 import * as nconf from 'nconf';
-import * as _ from 'lodash'
+import { RedisClient } from 'redis';
+import { Inject } from 'typedi';
+import User from './../../entity/User';
 
 export default class TokenRepository {
 
@@ -17,12 +17,12 @@ export default class TokenRepository {
         return new Promise((resolve, reject) => {
             this.redisClient.setex(userKey, tokenTTL, token, (error, response) => {
                 if (error) {
-                    reject(error)
+                    reject(error);
                 } else {
-                    resolve(!!response)
+                    resolve(!!response);
                 }
             });
-        })
+        });
     }
 
     public async exists(user: User, token: string): Promise<boolean> {
@@ -33,7 +33,7 @@ export default class TokenRepository {
 
     public getAllKeysByUser(user: User): Promise<string[]> {
         const userKey = this.getUserKey(user);
-        const pattern = userKey + ":*";
+        const pattern = userKey + ':*';
 
         return new Promise((resolve, reject) => {
             this.redisClient.keys(pattern, (error, list) => {
@@ -51,10 +51,10 @@ export default class TokenRepository {
         const userKeys = await this.getAllKeysByUser(user);
         for (const key of userKeys) {
             const token = await this.getByKey(key);
-            
+
             userTokens[key] = token;
         }
-        
+
         return userTokens;
     }
 
@@ -66,8 +66,8 @@ export default class TokenRepository {
                 } else {
                     resolve(result);
                 }
-            })
-        })
+            });
+        });
     }
 
     public deleteByKey(key: string): Promise<boolean> {
@@ -84,7 +84,7 @@ export default class TokenRepository {
 
     private getUserKey(user: User, withTimestamp = false) {
         let userHash = md5(user.email + user.id);
-        
+
         if (withTimestamp) {
             userHash += ':' + Date.now();
         }
