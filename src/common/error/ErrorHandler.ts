@@ -8,7 +8,7 @@ export default class ErrorHandler {
     @Inject('logger')
     private readonly logger: Logger;
 
-    public handle(error: any, isOperational : boolean = true) {
+    public handle(error: any, isOperational: boolean = true) {
         this.logger.error(JSON.stringify(error));
         this.crashVerify(error, isOperational);
     }
