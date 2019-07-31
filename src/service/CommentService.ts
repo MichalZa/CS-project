@@ -1,4 +1,5 @@
 import { Inject, Service } from 'typedi';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import { filterXSS } from 'xss';
 import CommentDto from '../dto/CommentDto';
@@ -12,14 +13,18 @@ import SecurityService from './SecurityService';
 @Service()
 export default class CommentService {
 
-    @InjectRepository()
-    private readonly commentRepository: CommentRepository;
-    @InjectRepository()
-    private readonly projectRepository: ProjectRepository;
-    @Inject()
-    private readonly securityService: SecurityService;
+    constructor(private readonly commentRepository: CommentRepository,
+                private readonly projectRepository: ProjectRepository,
+                private readonly securityService: SecurityService) {}
 
-    public async create(id: number, data: CommentDto, user: User) {
+    // @InjectRepository()
+    // private readonly commentRepository: CommentRepository;
+    // @InjectRepository()
+    // private readonly projectRepository: ProjectRepository;
+    // @Inject()
+    // private readonly securityService: SecurityService;
+
+    public async create(id: number, data: CommentDto, user: User): Promise<{ id: number }> {
         const project: Project = await this.projectRepository.findOneOrFail(id);
         const comment: Comment = await this.commentRepository.save({
             content: filterXSS(data.text),
@@ -32,11 +37,11 @@ export default class CommentService {
         return { id: comment.id };
     }
 
-    public read() {
+    public read(): Promise<[]> {
         return this.commentRepository.getAllWithAuthors();
     }
 
-    public async update(id: number, data: CommentDto, user: User) {
+    public async update(id: number, data: CommentDto, user: User): Promise<UpdateResult> {
         const comment: Comment = await this.getById(id, user);
 
         return this.commentRepository.update(comment, {
@@ -45,13 +50,13 @@ export default class CommentService {
         });
     }
 
-    public async delete(id: number, user: User) {
+    public async delete(id: number, user: User): Promise<DeleteResult> {
         const comment: Comment = await this.getById(id, user);
 
         return await this.commentRepository.delete(comment);
     }
 
-    private async getById(id: number, user: User) {
+    private async getById(id: number, user: User): Promise<Comment> {
         const comment: Comment = await this.commentRepository.findOneOrFail(id, { relations: ['user'] });
 
         this.securityService.denyUnlessGranted(comment, user);

@@ -5,7 +5,7 @@
    "main": "src/server.js",
    "scripts": {
       "docker": "cd ./tools/docker/ &&  docker-compose up -d",
-      "test": "jest",
+      "test": "NODE_ENV=test jest",
       "start-dev": "NODE_ENV=dev node build/server.js",
       "start": "ts-node src/index.ts",
       "dev": "npm install && sleep 10s && npm run migrate && npm run build && npm run start-dev",
@@ -48,7 +48,9 @@
       "@types/nconf": "^0.10.0",
       "@types/node": "^8.0.29",
       "@types/redis": "^2.8.12",
+      "@types/sinon": "^7.0.13",
       "jest": "^24.8.0",
+      "sinon": "^7.3.2",
       "ts-jest": "^24.0.2",
       "ts-node": "3.3.0",
       "tslint": "^5.18.0",
