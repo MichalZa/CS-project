@@ -1,20 +1,18 @@
 import {
-    JsonController,
-    Post,
-    Get,
-    Put,
-    Delete,
-    HttpCode,
-    Param,
-    UseBefore,
     Body,
-    CurrentUser
+    CurrentUser,
+    Delete,
+    Get,
+    JsonController,
+    Param,
+    Put,
+    UseBefore,
  } from 'routing-controllers';
 import { Inject } from 'typedi';
-import CommentService from './../service/CommentService';
-import AuthMiddleware from './../middleware/AuthMiddleware';
-import User from '../entity/User';
 import CommentDto from '../dto/CommentDto';
+import User from '../entity/User';
+import AuthMiddleware from './../middleware/AuthMiddleware';
+import CommentService from './../service/CommentService';
 
 @UseBefore(AuthMiddleware)
 @JsonController('/comment')

@@ -1,8 +1,8 @@
 import {
+    Body,
+    HeaderParam,
     JsonController,
     Post,
-    Body,
-    HeaderParam
  } from 'routing-controllers';
 import { Inject } from 'typedi';
 import AuthLoginDto from './../dto/AuthLoginDto';
@@ -13,13 +13,13 @@ import AuthService from './../service/AuthService';
 export default class AuthContoller {
 
     @Inject()
-    private readonly authService: AuthService
+    private readonly authService: AuthService;
 
     @Post('/registration')
     public register(@Body() data: AuthRegisterDto) {
         return this.authService.register(data);
     }
-    
+
     @Post('/login')
     public login(@Body() data: AuthLoginDto) {
         return this.authService.login(data);

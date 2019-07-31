@@ -1,12 +1,12 @@
-import { Service, Inject } from 'typedi';
-import User from '../entity/User';
-import ProjectRepository from '../repository/ProjectRepository';
-import { InjectRepository } from 'typeorm-typedi-extensions';;
-import SecurityService from './SecurityService';
-import ProjectDto from '../dto/ProjectDto';
-import Project, { status as ProjectStatus } from './../entity/Project';
-import CommentRepository from '../repository/CommentRepository';
+import { Inject, Service } from 'typedi';
+import { InjectRepository } from 'typeorm-typedi-extensions';
 import { filterXSS } from 'xss';
+import ProjectDto from '../dto/ProjectDto';
+import User from '../entity/User';
+import CommentRepository from '../repository/CommentRepository';
+import ProjectRepository from '../repository/ProjectRepository';
+import Project, { status as ProjectStatus } from './../entity/Project';
+import SecurityService from './SecurityService';
 
 @Service()
 export default class ProjectService {
@@ -25,7 +25,7 @@ export default class ProjectService {
             status: data.status,
             createdAt: new Date(),
             updatedAt: new Date(),
-            user: user
+            user,
         });
 
         return { id: project.id };
@@ -42,7 +42,7 @@ export default class ProjectService {
     public async readComments(id: number) {
         const project: Project = await this.projectRepository.findOneOrFail(id);
 
-        return this.commentRepository.find({ project })
+        return this.commentRepository.find({ project });
     }
 
     public async update(id: number, data: ProjectDto, user: User) {
@@ -52,7 +52,7 @@ export default class ProjectService {
             title: filterXSS(data.title),
             description: data.description,
             status: data.status,
-            updatedAt: new Date()
+            updatedAt: new Date(),
         });
     }
 

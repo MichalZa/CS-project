@@ -1,9 +1,9 @@
-import { get } from 'nconf'
-import { createConnection } from 'typeorm'
+import { get } from 'nconf';
+import { createConnection } from 'typeorm';
 
 export default () => {
-    const config = get('database')
-    
+    const config = get('database');
+
     return createConnection({
         type: config.type,
         host: config.host,
@@ -12,6 +12,6 @@ export default () => {
         password: config.password,
         database: config.database,
         charset: config.charset,
-        entities: [__dirname + '/../entity/*.js']
-    })
-}
+        entities: [__dirname + '/../entity/*.js'],
+    });
+};

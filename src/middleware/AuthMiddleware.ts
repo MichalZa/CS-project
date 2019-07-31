@@ -1,4 +1,4 @@
-import { ExpressMiddlewareInterface, UnauthorizedError, BadRequestError} from 'routing-controllers';
+import { BadRequestError, ExpressMiddlewareInterface, UnauthorizedError} from 'routing-controllers';
 import { Inject } from 'typedi';
 import JwtService from './../service/JwtService';
 
@@ -12,7 +12,7 @@ export default class AuthMiddleware implements ExpressMiddlewareInterface {
         if (!requestToken) {
             throw new BadRequestError('Required headers not provided');
         }
-        
+
         const tokenVerifiedData: any = await this.jwtService.verifyToken(requestToken);
 
         if (!tokenVerifiedData) {
@@ -23,5 +23,4 @@ export default class AuthMiddleware implements ExpressMiddlewareInterface {
 
         next();
     }
-    
 }

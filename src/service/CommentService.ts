@@ -1,13 +1,13 @@
-import { Service, Inject } from 'typedi';
+import { Inject, Service } from 'typedi';
 import { InjectRepository } from 'typeorm-typedi-extensions';
-import CommentRepository from '../repository/CommentRepository';
+import { filterXSS } from 'xss';
 import CommentDto from '../dto/CommentDto';
-import User from '../entity/User';
-import ProjectRepository from '../repository/ProjectRepository';
-import SecurityService from './SecurityService';
 import Comment from '../entity/Comment';
 import Project from '../entity/Project';
-import { filterXSS } from 'xss';
+import User from '../entity/User';
+import CommentRepository from '../repository/CommentRepository';
+import ProjectRepository from '../repository/ProjectRepository';
+import SecurityService from './SecurityService';
 
 @Service()
 export default class CommentService {
@@ -18,15 +18,15 @@ export default class CommentService {
     private readonly projectRepository: ProjectRepository;
     @Inject()
     private readonly securityService: SecurityService;
-    
+
     public async create(id: number, data: CommentDto, user: User) {
         const project: Project = await this.projectRepository.findOneOrFail(id);
         const comment: Comment = await this.commentRepository.save({
             content: filterXSS(data.text),
-            project: project,
-            user: user,
+            project,
+            user,
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
         });
 
         return { id: comment.id };
@@ -41,7 +41,7 @@ export default class CommentService {
 
         return this.commentRepository.update(comment, {
             content: filterXSS(data.text),
-            updatedAt: new Date()
+            updatedAt: new Date(),
         });
     }
 
