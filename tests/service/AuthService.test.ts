@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt-nodejs';
-import { UnauthorizedError } from 'routing-controllers';
+import { NotFoundError, UnauthorizedError } from 'routing-controllers';
 import * as sinon from 'sinon';
 import AppError from '../../src/common/error/type/AppError';
 import AuthLoginDto from '../../src/dto/AuthLoginDto';
@@ -55,11 +55,11 @@ describe('Auth Service test', () => {
     });
 
     it('login fail - user does not exist', () => {
-        sinon.mock(userRepository).expects('findOneOrFail').withArgs(authLoginDto.email).rejects();
+        sinon.mock(userRepository).expects('findOneOrFail').withArgs({ email: authLoginDto.email }).rejects();
 
         const authService = new AuthService(userRepository, jwtService);
 
-        expect(authService.login(authLoginDto)).rejects.toThrow();
+        expect(authService.login(authLoginDto)).rejects.toEqual(new NotFoundError('User does not exist'));
     });
 
     it('login fail - invalid credentials', () => {
@@ -72,7 +72,7 @@ describe('Auth Service test', () => {
 
         authLoginDto.password = 'invalidPassword';
 
-        expect(authService.login(authLoginDto)).rejects.toThrow();
+        expect(authService.login(authLoginDto)).rejects.toEqual(new UnauthorizedError('Incorrect password provided'));
     });
 
     it('login success', async () => {

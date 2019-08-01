@@ -41,7 +41,7 @@ export default class AuthService {
 
         const isCorrectPassword: boolean = bcrypt.compareSync(data.password, user.password);
         if (!isCorrectPassword) {
-            throw new UnauthorizedError('Incorrect password provided!');
+            throw new UnauthorizedError('Incorrect password provided');
         }
 
         const token: string = await this.jwtService.createToken(user);
