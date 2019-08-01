@@ -8,42 +8,59 @@ import SecurityService from '../../src/service/SecurityService';
 
 describe('CommentService test', () => {
     let commentService: CommentService;
+    let securityService: SecurityService;
+
+    let commentRepository: CommentRepository;
+    let projectRepository: ProjectRepository;
 
     const invalidProjectId: number = 5;
     const validProjectId: number = 10;
 
+    const invalidCommentId: number = 6;
+    const validCommentId: number = 12;
+
     beforeEach(() => {
+        commentRepository = new CommentRepository();
+        projectRepository = new ProjectRepository();
+        securityService = new SecurityService();
+    });
 
-        const commentRepository = new CommentRepository();
-        const commentRepositoryMock = sinon.mock(commentRepository);
-
-        const projectRepository = new ProjectRepository();
-        const projectRepositoryMock = sinon.mock(projectRepository);
-
-        commentRepositoryMock.expects('getAllWithAuthors').once().returns({});
-        commentRepositoryMock.expects('save').once().returns({ id: 5 });
-
-        projectRepositoryMock.expects('findOneOrFail').withArgs(invalidProjectId).throws();
-        projectRepositoryMock.expects('findOneOrFail').withArgs(validProjectId).returns({ id: validProjectId });
+    it('create fail - invalid project id', () => {
+        sinon.mock(projectRepository).expects('findOneOrFail').withArgs(invalidProjectId).throws();
 
         commentService =  new CommentService(
             commentRepository,
             projectRepository,
-            new SecurityService(),
+            securityService,
         );
-    });
 
-    it('create fail - invalid project id', () => {
         expect(commentService.create(invalidProjectId, new CommentDto(), new User())).rejects.toThrow();
     });
 
     it('create success - valid project id', async () => {
+        sinon.mock(projectRepository).expects('findOneOrFail').withArgs(validProjectId).returns({ id: validProjectId });
+        sinon.mock(commentRepository).expects('save').once().returns({ id: 5 });
+
+        commentService =  new CommentService(
+            commentRepository,
+            projectRepository,
+            securityService,
+        );
+
         const create = await commentService.create(validProjectId, new CommentDto(), new User());
 
         expect(create).toStrictEqual({ id: 5 });
     });
 
     it('read all', () => {
+        sinon.mock(commentRepository).expects('getAllWithAuthors').returns({});
+
+        commentService =  new CommentService(
+            commentRepository,
+            projectRepository,
+            securityService,
+        );
+
         const read = commentService.read();
 
         expect(read).toStrictEqual({});

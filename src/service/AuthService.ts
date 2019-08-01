@@ -12,12 +12,10 @@ import JwtService from './JwtService';
 @Service()
 export default class AuthService {
 
-    @InjectRepository()
-    private readonly userRepository: UserRepository;
-    @Inject()
-    private readonly jwtService: JwtService;
+    constructor(private readonly userRepository: UserRepository,
+                private readonly jwtService: JwtService) {}
 
-    public async register(data: AuthRegisterDto) {
+    public async register(data: AuthRegisterDto): Promise<{ id: number, email: string  }> {
         const userExists: boolean = await this.userRepository.exists(data.email);
         if (userExists) {
             throw new AppError('User already exists!');
@@ -54,7 +52,7 @@ export default class AuthService {
     public async logout(token: string) {
         const validTokenData = await this.jwtService.verifyToken(token);
         if (!validTokenData) {
-            throw new UnauthorizedError();
+            throw new UnauthorizedError('Invalid token');
         }
 
         const success: boolean = await this.jwtService.flushToken(validTokenData.user, token);
