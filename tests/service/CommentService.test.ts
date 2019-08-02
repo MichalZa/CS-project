@@ -1,5 +1,7 @@
 import * as sinon from 'sinon';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import CommentDto from '../../src/dto/CommentDto';
+import Comment from '../../src/entity/Comment';
 import User from '../../src/entity/User';
 import CommentRepository from '../../src/repository/CommentRepository';
 import ProjectRepository from '../../src/repository/ProjectRepository';
@@ -13,6 +15,8 @@ describe('CommentService test', () => {
     let commentRepository: CommentRepository;
     let projectRepository: ProjectRepository;
 
+    let user: User;
+
     const invalidProjectId: number = 5;
     const validProjectId: number = 10;
 
@@ -22,7 +26,10 @@ describe('CommentService test', () => {
     beforeEach(() => {
         commentRepository = new CommentRepository();
         projectRepository = new ProjectRepository();
+
         securityService = new SecurityService();
+
+        user = new User();
     });
 
     it('create fail - invalid project id', () => {
@@ -34,7 +41,7 @@ describe('CommentService test', () => {
             securityService,
         );
 
-        expect(commentService.create(invalidProjectId, new CommentDto(), new User())).rejects.toThrow();
+        expect(commentService.create(invalidProjectId, new CommentDto(), user)).rejects.toThrow();
     });
 
     it('create success - valid project id', async () => {
@@ -47,7 +54,7 @@ describe('CommentService test', () => {
             securityService,
         );
 
-        const create = await commentService.create(validProjectId, new CommentDto(), new User());
+        const create = await commentService.create(validProjectId, new CommentDto(), user);
 
         expect(create).toStrictEqual({ id: 5 });
     });
@@ -64,5 +71,37 @@ describe('CommentService test', () => {
         const read = commentService.read();
 
         expect(read).toStrictEqual({});
+    });
+
+    it('update success', async () => {
+        const comment = new Comment();
+
+        user.id = 5;
+        comment.user = user;
+
+        sinon.mock(commentRepository).expects('findOneOrFail').once().resolves(comment);
+        sinon.mock(commentRepository).expects('update').once().resolves(UpdateResult);
+
+        const commentService = new CommentService(commentRepository, projectRepository, securityService);
+
+        const update = await commentService.update(validCommentId, new CommentDto(), user);
+
+        expect(update).toBe(UpdateResult);
+    });
+
+    it('delete success', async () => {
+        const comment = new Comment();
+
+        user.id = 5;
+        comment.user = user;
+
+        sinon.mock(commentRepository).expects('findOneOrFail').once().resolves(comment);
+        sinon.mock(commentRepository).expects('delete').once().resolves(DeleteResult);
+
+        const commentService = new CommentService(commentRepository, projectRepository, securityService);
+
+        const commentDelete = await commentService.delete(validCommentId, user);
+
+        expect(commentDelete).toBe(DeleteResult);
     });
 });

@@ -36,7 +36,7 @@ export default class CommentService {
     public async update(id: number, data: CommentDto, user: User): Promise<UpdateResult> {
         const comment: Comment = await this.getById(id, user);
 
-        return this.commentRepository.update(comment, {
+        return await this.commentRepository.update(comment, {
             content: filterXSS(data.text),
             updatedAt: new Date(),
         });

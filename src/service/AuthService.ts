@@ -1,7 +1,6 @@
 import * as bcrypt from 'bcrypt-nodejs';
 import { NotFoundError, UnauthorizedError } from 'routing-controllers';
-import { Inject, Service } from 'typedi';
-import { InjectRepository } from 'typeorm-typedi-extensions';
+import { Service } from 'typedi';
 import AppError from './../common/error/type/AppError';
 import AuthLoginDto from './../dto/AuthLoginDto';
 import AuthRegisterDto from './../dto/AuthRegisterDto';
@@ -34,7 +33,8 @@ export default class AuthService {
             email: user.email,
         };
     }
-    public async login(data: AuthLoginDto) {
+
+    public async login(data: AuthLoginDto): Promise<{ token: string }> {
         const user: User = await this.userRepository.findOneOrFail({ email: data.email }).catch((error: any) => {
             throw new NotFoundError('User does not exist');
         });
@@ -49,12 +49,8 @@ export default class AuthService {
         return { token };
     }
 
-    public async logout(token: string) {
+    public async logout(token: string): Promise<{ success: boolean }> {
         const validTokenData = await this.jwtService.verifyToken(token);
-        if (!validTokenData) {
-            throw new UnauthorizedError('Invalid token');
-        }
-
         const success: boolean = await this.jwtService.flushToken(validTokenData.user, token);
 
         return { success };

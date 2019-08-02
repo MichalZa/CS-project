@@ -5,6 +5,7 @@ import AppError from '../../src/common/error/type/AppError';
 import AuthLoginDto from '../../src/dto/AuthLoginDto';
 import AuthRegisterDto from '../../src/dto/AuthRegisterDto';
 import User from '../../src/entity/User';
+import TokenRepository from '../../src/repository/redis/TokenRepository';
 import UserRepository from '../../src/repository/UserRepository';
 import AuthService from '../../src/service/AuthService';
 import JwtService from '../../src/service/JwtService';
@@ -19,8 +20,9 @@ describe('Auth Service test', () => {
     let authLoginDto: AuthLoginDto;
 
     beforeEach(() => {
-        jwtService = new JwtService();
         userRepository = new UserRepository();
+
+        jwtService = new JwtService(new TokenRepository(), userRepository);
 
         authRegisterDto = new AuthRegisterDto();
         authRegisterDto.email = 'email@email.com';
@@ -88,14 +90,6 @@ describe('Auth Service test', () => {
         const login = await authService.login(authLoginDto);
 
         expect(login).toStrictEqual({ token });
-    });
-
-    it('logout fail - invalid token', () => {
-        sinon.mock(jwtService).expects('verifyToken').once().returns(false);
-
-        const authService = new AuthService(userRepository, jwtService);
-
-        expect(authService.logout('token')).rejects.toEqual(new UnauthorizedError('Invalid token'));
     });
 
     it('logout success', async () => {
