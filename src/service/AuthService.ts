@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt-nodejs';
 import { NotFoundError, UnauthorizedError } from 'routing-controllers';
 import { Service } from 'typedi';
+import { InjectRepository } from 'typeorm-typedi-extensions';
 import AppError from './../common/error/type/AppError';
 import AuthLoginDto from './../dto/AuthLoginDto';
 import AuthRegisterDto from './../dto/AuthRegisterDto';
@@ -11,7 +12,7 @@ import JwtService from './JwtService';
 @Service()
 export default class AuthService {
 
-    constructor(private readonly userRepository: UserRepository,
+    constructor(@InjectRepository() private readonly userRepository: UserRepository,
                 private readonly jwtService: JwtService) {}
 
     public async register(data: AuthRegisterDto): Promise<{ id: number, email: string  }> {

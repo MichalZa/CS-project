@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import * as conf from 'nconf';
 import { NotFoundError, UnauthorizedError } from 'routing-controllers';
 import { Service } from 'typedi';
+import { InjectRepository } from 'typeorm-typedi-extensions';
 import User from './../entity/User';
 import TokenRepository from './../repository/redis/TokenRepository';
 import UserRepository from './../repository/UserRepository';
@@ -11,7 +12,7 @@ import UserRepository from './../repository/UserRepository';
 export default class JwtService {
 
     constructor(private readonly tokenRepository: TokenRepository,
-                private readonly userRepository: UserRepository) {}
+                @InjectRepository() private readonly userRepository: UserRepository) {}
 
     public async createToken(user: User): Promise<string> {
         const token: string = user.generateAuthToken();

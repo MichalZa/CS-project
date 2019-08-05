@@ -1,5 +1,6 @@
 import { Service } from 'typedi';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { InjectRepository } from 'typeorm-typedi-extensions';
 import { filterXSS } from 'xss';
 import CommentDto from '../dto/CommentDto';
 import Comment from '../entity/Comment';
@@ -12,8 +13,8 @@ import SecurityService from './SecurityService';
 @Service()
 export default class CommentService {
 
-    constructor(private readonly commentRepository: CommentRepository,
-                private readonly projectRepository: ProjectRepository,
+    constructor(@InjectRepository() private readonly commentRepository: CommentRepository,
+                @InjectRepository() private readonly projectRepository: ProjectRepository,
                 private readonly securityService: SecurityService) {}
 
     public async create(id: number, data: CommentDto, user: User): Promise<{ id: number }> {

@@ -1,7 +1,9 @@
-import { Inject, Service } from 'typedi';
+import { Service } from 'typedi';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import { filterXSS } from 'xss';
 import ProjectDto from '../dto/ProjectDto';
+import Comment from '../entity/Comment';
 import User from '../entity/User';
 import CommentRepository from '../repository/CommentRepository';
 import ProjectRepository from '../repository/ProjectRepository';
@@ -11,14 +13,11 @@ import SecurityService from './SecurityService';
 @Service()
 export default class ProjectService {
 
-    @InjectRepository()
-    private readonly projectRepository: ProjectRepository;
-    @InjectRepository()
-    private readonly commentRepository: CommentRepository;
-    @Inject()
-    private readonly securityService: SecurityService;
+    constructor(@InjectRepository() private readonly projectRepository: ProjectRepository,
+                @InjectRepository() private readonly commentRepository: CommentRepository,
+                private readonly securityService: SecurityService) {}
 
-    public async create(data: ProjectDto, user: User) {
+    public async create(data: ProjectDto, user: User): Promise<{ id: number }> {
         const project: Project = await this.projectRepository.save({
             title: data.title,
             description: filterXSS(data.description),
@@ -31,7 +30,7 @@ export default class ProjectService {
         return { id: project.id };
     }
 
-    public async read(status: string) {
+    public async read(status: string): Promise<Project[]> {
         if (status in ProjectStatus) {
             return this.projectRepository.find({ status: ProjectStatus[status] });
         }
@@ -39,13 +38,13 @@ export default class ProjectService {
         return this.projectRepository.find();
     }
 
-    public async readComments(id: number) {
+    public async readComments(id: number): Promise<Comment[]> {
         const project: Project = await this.projectRepository.findOneOrFail(id);
 
         return this.commentRepository.find({ project });
     }
 
-    public async update(id: number, data: ProjectDto, user: User) {
+    public async update(id: number, data: ProjectDto, user: User): Promise<UpdateResult> {
         const project: Project = await this.getById(id, user);
 
         return this.projectRepository.update(project, {
@@ -56,13 +55,13 @@ export default class ProjectService {
         });
     }
 
-    public async delete(id: number, user: User) {
+    public async delete(id: number, user: User): Promise<DeleteResult> {
         const project: Project = await this.getById(id, user);
 
         return await this.projectRepository.delete(project);
     }
 
-    private async getById(id: number, user: User) {
+    private async getById(id: number, user: User): Promise<Project> {
         const project: Project = await this.projectRepository.findOneOrFail(id, { relations: ['user'] });
 
         this.securityService.denyUnlessGranted(project, user);

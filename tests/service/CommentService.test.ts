@@ -16,11 +16,10 @@ describe('CommentService test', () => {
     let projectRepository: ProjectRepository;
 
     let user: User;
+    let comment: Comment;
 
     const invalidProjectId: number = 5;
     const validProjectId: number = 10;
-
-    const invalidCommentId: number = 6;
     const validCommentId: number = 12;
 
     beforeEach(() => {
@@ -30,6 +29,9 @@ describe('CommentService test', () => {
         securityService = new SecurityService();
 
         user = new User();
+        comment = new Comment();
+
+        user.id = 5;
     });
 
     it('create fail - invalid project id', () => {
@@ -74,9 +76,6 @@ describe('CommentService test', () => {
     });
 
     it('update success', async () => {
-        const comment = new Comment();
-
-        user.id = 5;
         comment.user = user;
 
         sinon.mock(commentRepository).expects('findOneOrFail').once().resolves(comment);
@@ -90,9 +89,6 @@ describe('CommentService test', () => {
     });
 
     it('delete success', async () => {
-        const comment = new Comment();
-
-        user.id = 5;
         comment.user = user;
 
         sinon.mock(commentRepository).expects('findOneOrFail').once().resolves(comment);

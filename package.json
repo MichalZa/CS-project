@@ -6,7 +6,7 @@
    "scripts": {
       "docker": "cd ./tools/docker/ &&  docker-compose up -d",
       "test": "NODE_ENV=test jest",
-      "start-dev": "NODE_ENV=dev node build/server.js",
+      "start-dev": "NODE_ENV=dev node build/src/server.js",
       "start": "ts-node src/index.ts",
       "dev": "npm install && sleep 10s && npm run migrate && npm run build && npm run start-dev",
       "migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
