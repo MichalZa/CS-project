@@ -11,7 +11,7 @@ cache:
   directories:
     - node_modules
 before_install:
-  - mysql -e 'CREATE DATABSE cs_project_ci;'
+  - mysql -e 'CREATE DATABASE cs_project_ci;'
 install:
   - npm install
   - npm run build
