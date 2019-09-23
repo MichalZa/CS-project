@@ -7,7 +7,7 @@
       "docker": "cd ./tools/docker/ &&  docker-compose up -d",
       "test": "NODE_ENV=test jest",
       "start-dev": "NODE_ENV=dev node build/src/server.js",
-      "start": "ts-node src/index.ts",
+      "start": "node build/src/server.js",
       "dev": "npm install && sleep 10s && npm run migrate && npm run build && npm run start-dev",
       "migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
       "build": "./node_modules/typescript/bin/tsc",
