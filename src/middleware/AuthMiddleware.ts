@@ -15,10 +15,6 @@ export default class AuthMiddleware implements ExpressMiddlewareInterface {
 
         const tokenVerifiedData: any = await this.jwtService.verifyToken(requestToken);
 
-        if (!tokenVerifiedData) {
-            throw new UnauthorizedError('Unauthorized');
-        }
-
         request.currentUser = tokenVerifiedData.user;
 
         next();

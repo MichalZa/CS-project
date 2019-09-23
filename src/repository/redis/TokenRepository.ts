@@ -2,9 +2,10 @@ import * as _ from 'lodash';
 import * as md5 from 'md5';
 import * as nconf from 'nconf';
 import { RedisClient } from 'redis';
-import { Inject } from 'typedi';
+import { Inject, Service } from 'typedi';
 import User from './../../entity/User';
 
+@Service()
 export default class TokenRepository {
 
     @Inject('redis')
