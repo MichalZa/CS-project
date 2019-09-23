@@ -3,9 +3,9 @@
         "type": "mysql",
         "host" : "127.0.0.1",
         "port": 3306,
-        "username": "rower",
-        "password": "rower",
-        "database": "cs_project",
+        "username": "travis",
+        "password": "",
+        "database": "cs_project_ci",
         "charset": "UTF8_GENERAL_CI"
     },
     "redis": {
