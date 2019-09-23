@@ -1,0 +1,15 @@
+
+> cs-project@1.0.0 start /Users/mzarow/Desktop/upSKILL/NODE_JS/CS-project
+> node build/src/server.js
+
+{"message":"{\"errno\":\"ENOTFOUND\",\"code\":\"ENOTFOUND\",\"syscall\":\"getaddrinfo\",\"hostname\":\"mysql_host\",\"fatal\":true}","level":"error"}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! cs-project@1.0.0 start: `node build/src/server.js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the cs-project@1.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /Users/mzarow/.npm/_logs/2019-09-23T12_36_58_208Z-debug.log
