@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/MichalZa/CS-project.svg?branch=master)](https://travis-ci.org/MichalZa/CS-project)
+
 # Setup
 
 Steps to run this project:
