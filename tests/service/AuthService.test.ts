@@ -53,7 +53,7 @@ describe('Auth Service test', () => {
 
         const register = await authService.register(authRegisterDto);
 
-        expect(register).toStrictEqual({});
+        expect(register).toStrictEqual({returnResult});
     });
 
     it('login fail - user does not exist', () => {
