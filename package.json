@@ -5,7 +5,7 @@
    "main": "src/server.js",
    "scripts": {
       "docker": "cd ./tools/docker/ &&  docker-compose up -d",
-      "test": "NODE_ENV=test jest",
+      "test": "NODE_ENV=test jest --coverage --coverageDirectory=output/coverage/jest",
       "start-dev": "NODE_ENV=dev node build/src/server.js",
       "start": "node build/src/server.js",
       "dev": "npm install && sleep 10s && npm run migrate && npm run build && npm run start-dev",
@@ -13,6 +13,12 @@
       "build": "./node_modules/typescript/bin/tsc",
       "tslint": "./node_modules/tslint/bin/tslint --project '.'",
       "tslint-fix": "./node_modules/tslint/bin/tslint --project '.' --fix"
+   },
+   "jest": {
+      "coverageReporters": [
+         "text",
+         "cobertura"
+       ]
    },
    "author": "MichalZa",
    "license": "ISC",

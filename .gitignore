@@ -7,3 +7,4 @@ temp/
 data/
 logs/
 config/dev.json
+output
