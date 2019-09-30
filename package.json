@@ -14,12 +14,6 @@
       "tslint": "./node_modules/tslint/bin/tslint --project '.'",
       "tslint-fix": "./node_modules/tslint/bin/tslint --project '.' --fix"
    },
-   "jest": {
-      "coverageReporters": [
-         "text",
-         "cobertura"
-       ]
-   },
    "author": "MichalZa",
    "license": "ISC",
    "dependencies": {
