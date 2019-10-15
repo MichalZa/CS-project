@@ -5,7 +5,7 @@
    "main": "src/server.js",
    "scripts": {
       "docker": "cd ./tools/docker/ &&  docker-compose up -d",
-      "test": "NODE_ENV=test jest --coverage --coverageDirectory=output/coverage/jest",
+      "test": "jest --coverage --coverageDirectory=output/coverage/jest",
       "start-dev": "node build/src/server.js",
       "start": "node build/src/server.js",
       "dev": "npm install && npm run migrate && npm run start-dev",
@@ -53,6 +53,7 @@
       "@types/redis": "^2.8.12",
       "@types/sinon": "^7.0.13",
       "@types/uuid": "^3.4.5",
+      "eslint": "^6.5.1",
       "jest": "^24.8.0",
       "nodemon": "^1.19.3",
       "sinon": "^7.3.2",
