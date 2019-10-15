@@ -1,0 +1,46 @@
+version: '2.4'
+
+services:
+  app:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "3000:3000"
+    environment:
+      - DEBUG=express:*
+    command: nodemon --inspect=0.0.0.0:9229 src/server.ts
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./:/opt/node/app
+    working_dir: /opt/node/app
+  mysql:
+    image: mysql:5.6
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1
+    environment:
+      - MYSQL_DATABASE=cs_project
+      - MYSQL_ROOT_PASSWORD=rower_cs
+      - MYSQL_USER=rower
+      - MYSQL_PASSWORD=rower
+      - MYSQL_ROOT_HOST=%
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./data/mysql:/var/lib/mysql"
+  redis:
+    image: redis:alpine
+    healthcheck:
+      test: redis-cli ping
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./data/redis:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  redis-data:

@@ -1,7 +1,7 @@
 {
     "database": {
         "type": "mysql",
-        "host" : "mysql_host",
+        "host" : "mysql",
         "port": 3306,
         "username": "rower",
         "password": "rower",
@@ -9,7 +9,7 @@
         "charset": "UTF8_GENERAL_CI"
     },
     "redis": {
-        "host": "redis_host",
+        "host": "redis",
         "port": "6379",
         "tokenTTL": 86400
     },
