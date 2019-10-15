@@ -39,7 +39,7 @@ CMD [ "nodemon" ]
 # Stage 3 (build)
 FROM dev as build
 
-COPY . .
+COPY --chown=node:node . .
 
 # build javascript files
 RUN tsc
