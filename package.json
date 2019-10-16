@@ -11,8 +11,8 @@
       "dev": "npm install && npm run migrate && npm run start-dev",
       "migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
       "build": "./node_modules/typescript/bin/tsc",
-      "tslint": "./node_modules/tslint/bin/tslint --project '.'",
-      "tslint-fix": "./node_modules/tslint/bin/tslint --project '.' --fix"
+      "tslint": "tslint --project '.'",
+      "tslint-fix": "tslint --project '.' --fix"
    },
    "author": "MichalZa",
    "license": "ISC",
@@ -22,7 +22,7 @@
       "body-parser": "^1.19.0",
       "class-validator": "^0.8.1",
       "express": "^4.17.0",
-      "helmet": "^3.18.0",
+      "helmet": "^3.21.1",
       "jsonwebtoken": "^8.5.1",
       "lodash": "^4.17.15",
       "md5": "^2.2.1",
@@ -53,7 +53,6 @@
       "@types/redis": "^2.8.12",
       "@types/sinon": "^7.0.13",
       "@types/uuid": "^3.4.5",
-      "eslint": "^6.5.1",
       "jest": "^24.8.0",
       "nodemon": "^1.19.3",
       "sinon": "^7.3.2",

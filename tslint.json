@@ -74,5 +74,6 @@
         }
       ],
       "radix": true
-    }
+    },
+    "defaultSeverity": "warning"
   }

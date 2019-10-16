@@ -28,7 +28,7 @@ FROM base as dev
 
 ENV NODE_ENV=development
 
-ENV PATH=/opt/node/node_modules/.bin:$PATH
+ENV PATH=/opt/node/node_modules/.bin/:$PATH
 
 RUN npm install --only=development
 
@@ -50,9 +50,15 @@ FROM source as test
 
 ENV NODE_ENV=test
 
+ENV PATH=/opt/node/node_modules/.bin/:$PATH
+
 COPY --from=dev /opt/node/node_modules /opt/node/node_modules
 
-RUN eslint .
+WORKDIR /opt/node/app
+
+# force: Return status code 0 even if there are any lint errors
+# 
+RUN npm run tslint
 
 RUN npm run test
 
@@ -67,8 +73,15 @@ RUN npm audit
 # https://github.com/aquasecurity/microscanner
 ARG MICROSCANNER_TOKEN
 ADD https://get.aquasec.com/microscanner /
+
+USER root 
+
 RUN chmod +x /microscanner
+
 RUN apk add --no-cache ca-certificates && update-ca-certificates
+
+USER node 
+
 RUN /microscanner $MICROSCANNER_TOKEN --continue-on-failure
 
 # Stage 5 (build)
