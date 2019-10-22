@@ -38,6 +38,27 @@ export default async (): Promise<express.Application> => {
     app.use(helmet());
     app.use(bodyParser.json());
 
+    app.get('/_readiness', (req, res) => {
+        // ToDo:
+        // is this container ready for incoming connections?
+        // sample query to db
+        if (true) {
+            res.send(200).send({status: 'ready'});
+        } else {
+            res.send(500).send({status: 'unready'});
+        }
+    });
+
+    app.get('/_liveness', (req, res) => {
+        // "does this container work or does it need to be replaced?"
+        // check your app internals for health, but maybe
+        // don't check for db connection, that's what readiness is for
+        // this validates express is responding to requests
+        // and not deadlocked
+        // - If Kubelet fails this test, it kills and recreates pod
+        res.status(200).send({status: 'live'});
+      });
+
     routeUseContainer(diContainer);
 
     return useExpressServer(app, {
