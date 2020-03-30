@@ -2,6 +2,7 @@ import * as http from 'http';
 
 import application from './app/app';
 
+// test comment
 const run = async () => {
     const port = process.env.PORT || 3000;
     const app = await application();
