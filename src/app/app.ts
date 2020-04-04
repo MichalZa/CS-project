@@ -5,6 +5,7 @@ import 'reflect-metadata';
 import { useContainer as routeUseContainer, useExpressServer, Action } from 'routing-controllers';
 import { Container as diContainer } from 'typedi';
 import { useContainer as ormUseContainer } from 'typeorm';
+import { initS3 } from '../common/aws/s3';
 import ErrorHandler from './../common/error/ErrorHandler';
 import { loadConfig } from './config';
 import database from './database';
@@ -18,6 +19,8 @@ export default async (): Promise<express.Application> => {
     loadConfig();
 
     logger();
+
+    initS3();
 
     const errorHandler: ErrorHandler = diContainer.get(ErrorHandler);
 

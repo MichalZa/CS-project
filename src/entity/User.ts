@@ -1,12 +1,11 @@
 import * as jwt from 'jsonwebtoken';
 import * as conf from 'nconf';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Comment from './Comment';
 import Project from './Project';
 
 @Entity()
-export default class User {
-
+export default class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 

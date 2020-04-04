@@ -12,6 +12,6 @@ export default () => {
         password: config.password,
         database: config.database,
         charset: config.charset,
-        entities: [__dirname + '/../entity/*.js'],
+        entities: [`${__dirname}/../entity/**/*.{js,ts}`],
     });
 };

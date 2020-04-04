@@ -7,7 +7,6 @@ import User from './../../entity/User';
 
 @Service()
 export default class TokenRepository {
-
     @Inject('redis')
     private readonly redisClient: RedisClient;
 

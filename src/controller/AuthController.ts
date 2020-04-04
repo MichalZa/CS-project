@@ -4,16 +4,13 @@ import {
     JsonController,
     Post,
  } from 'routing-controllers';
-import { Inject } from 'typedi';
 import AuthLoginDto from './../dto/AuthLoginDto';
 import AuthRegisterDto from './../dto/AuthRegisterDto';
 import AuthService from './../service/AuthService';
 
 @JsonController('/auth')
 export default class AuthContoller {
-
-    @Inject()
-    private readonly authService: AuthService;
+    constructor(private authService: AuthService) {}
 
     @Post('/registration')
     public register(@Body() data: AuthRegisterDto) {

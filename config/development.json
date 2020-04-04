@@ -20,5 +20,11 @@
     "jwt": {
         "signature": "cs_project",
         "expiresIn": "24 hours"
+    },
+    "aws": {
+        "s3": {
+            "accessKeyId": "accessKeyId",
+            "secretAccessKey": "secretAccessKey"
+        }
     }
 }

@@ -9,7 +9,7 @@ export default class ErrorHandler {
     private readonly logger: Logger;
 
     public handle(error: any, isOperational: boolean = true) {
-        this.logger.error(JSON.stringify(error));
+        this.logger.error(JSON.stringify(error, Object.getOwnPropertyNames(error)));
         this.crashVerify(error, isOperational);
     }
 
