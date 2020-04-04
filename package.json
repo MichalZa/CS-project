@@ -6,11 +6,11 @@
    "scripts": {
       "docker": "cd ./tools/docker/ &&  docker-compose up -d",
       "test": "jest --coverage --coverageDirectory=output/coverage/jest",
-      "start-dev": "node build/src/server.js",
-      "start": "./node_modules/.bin/pm2 start build/src/server.js -i 0",
-      "dev": "npm install && npm run migrate && npm run start-dev",
-      "migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
-      "build": "./node_modules/typescript/bin/tsc",
+      "start-dev": "nodemon --inspect=0.0.0.0:9229 src/server.ts",
+      "start": "pm2 start build/src/server.js -i 0",
+      "dev": "npm run migrate && npm run start-dev",
+      "migrate": "ts-node ./../node_modules/.bin/typeorm migration:run",
+      "build": "tsc",
       "tslint": "tslint --project '.'",
       "tslint-fix": "tslint --project '.' --fix"
    },
