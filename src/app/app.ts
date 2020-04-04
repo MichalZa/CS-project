@@ -6,7 +6,7 @@ import { useContainer as routeUseContainer, useExpressServer, Action } from 'rou
 import { Container as diContainer } from 'typedi';
 import { useContainer as ormUseContainer } from 'typeorm';
 import ErrorHandler from './../common/error/ErrorHandler';
-import config from './config';
+import { loadConfig } from './config';
 import database from './database';
 import logger from './logger';
 import redis from './redis';
@@ -15,11 +15,11 @@ export default async (): Promise<express.Application> => {
 
     ormUseContainer(diContainer);
 
-    config();
+    loadConfig();
 
     logger();
 
-    const errorHandler = diContainer.get(ErrorHandler);
+    const errorHandler: ErrorHandler = diContainer.get(ErrorHandler);
 
     process.on('unhandledRejection', (error: any) => {
         throw error;
@@ -63,8 +63,8 @@ export default async (): Promise<express.Application> => {
 
     return useExpressServer(app, {
         routePrefix: '/api',
-        controllers: [__dirname + '/../controller/*.js'],
-        middlewares: [__dirname + '/../middleware/*.js'],
+        controllers: [`${__dirname}/../controller/*.{js,ts}`],
+        middlewares: [`${__dirname}/../middleware/*.{js,ts}`],
         currentUserChecker: async (action: Action) => {
             return action.request.currentUser;
         },

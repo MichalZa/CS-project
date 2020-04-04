@@ -8,7 +8,7 @@ export default () => {
 
     const logger: Logger = winston.createLogger({
         transports: [
-          // in docker we want only logging to stdout
+          // in the docker we want only logging to stdout
           new winston.transports.Console(),
         ],
         level: config.level,
