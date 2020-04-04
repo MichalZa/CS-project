@@ -4,7 +4,7 @@ import User from '../../src/entity/User';
 import TokenRepository from '../../src/repository/redis/TokenRepository';
 import UserRepository from '../../src/repository/UserRepository';
 import JwtService from '../../src/service/JwtService';
-import config from './../../src/app/config';
+import { loadConfig } from './../../src/app/config';
 
 describe('Jwt Service test', () => {
     let tokenRepository: TokenRepository;
@@ -23,7 +23,7 @@ describe('Jwt Service test', () => {
         user.email = 'email@email.com';
 
         // load config cause we need signature
-        config();
+        loadConfig();
     });
 
     it('create token success', async () => {
