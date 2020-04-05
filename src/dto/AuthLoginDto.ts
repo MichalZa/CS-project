@@ -1,7 +1,6 @@
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 
 export default class AuthLoginDto {
-
     @IsEmail()
     public email: string;
 

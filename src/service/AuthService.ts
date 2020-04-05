@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt-nodejs';
 import { NotFoundError, UnauthorizedError } from 'routing-controllers';
 import { Service } from 'typedi';
 import { InjectRepository } from 'typeorm-typedi-extensions';
+
 import AppError from './../common/error/type/AppError';
 import AuthLoginDto from './../dto/AuthLoginDto';
 import AuthRegisterDto from './../dto/AuthRegisterDto';
@@ -11,12 +12,14 @@ import JwtService from './JwtService';
 
 @Service()
 export default class AuthService {
-
-    constructor(@InjectRepository() private readonly userRepository: UserRepository,
-                private readonly jwtService: JwtService) {}
+    constructor(
+        private jwtService: JwtService,
+        @InjectRepository() private userRepository: UserRepository,
+    ) {}
 
     public async register(data: AuthRegisterDto): Promise<{ id: number, email: string  }> {
         const userExists: boolean = await this.userRepository.exists(data.email);
+
         if (userExists) {
             throw new AppError('User already exists!');
         }
@@ -41,6 +44,7 @@ export default class AuthService {
         });
 
         const isCorrectPassword: boolean = bcrypt.compareSync(data.password, user.password);
+
         if (!isCorrectPassword) {
             throw new UnauthorizedError('Incorrect password provided');
         }

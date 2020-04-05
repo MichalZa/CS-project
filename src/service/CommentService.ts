@@ -2,6 +2,7 @@ import { Service } from 'typedi';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import { filterXSS } from 'xss';
+
 import CommentDto from '../dto/CommentDto';
 import Comment from '../entity/Comment';
 import Project from '../entity/Project';
@@ -12,12 +13,13 @@ import SecurityService from './SecurityService';
 
 @Service()
 export default class CommentService {
+    constructor(
+        @InjectRepository() private commentRepository: CommentRepository,
+        @InjectRepository() private projectRepository: ProjectRepository,
+        private securityService: SecurityService,
+    ) {}
 
-    constructor(@InjectRepository() private readonly commentRepository: CommentRepository,
-                @InjectRepository() private readonly projectRepository: ProjectRepository,
-                private readonly securityService: SecurityService) {}
-
-    public async create(id: number, data: CommentDto, user: User): Promise<{ id: number }> {
+    public async create(id: number, data: CommentDto, user: User): Promise<Comment> {
         const project: Project = await this.projectRepository.findOneOrFail(id);
         const comment: Comment = await this.commentRepository.save({
             content: filterXSS(data.text),
@@ -27,7 +29,7 @@ export default class CommentService {
             updatedAt: new Date(),
         });
 
-        return { id: comment.id };
+        return comment;
     }
 
     public read(): Promise<[]> {

@@ -1,5 +1,4 @@
 export default class AppError extends Error {
-
     public isOperational: boolean;
 
     constructor(message: string, isOperational: boolean = true) {

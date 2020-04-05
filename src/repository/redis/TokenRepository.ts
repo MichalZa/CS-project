@@ -3,6 +3,7 @@ import * as md5 from 'md5';
 import * as nconf from 'nconf';
 import { RedisClient } from 'redis';
 import { Inject, Service } from 'typedi';
+
 import User from './../../entity/User';
 
 @Service()
@@ -16,11 +17,7 @@ export default class TokenRepository {
 
         return new Promise((resolve, reject) => {
             this.redisClient.setex(userKey, tokenTTL, token, (error, response) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(!!response);
-                }
+                error ? reject(error) : resolve(!!response);
             });
         });
     }
@@ -37,11 +34,7 @@ export default class TokenRepository {
 
         return new Promise((resolve, reject) => {
             this.redisClient.keys(pattern, (error, list) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(list);
-                }
+                error ? reject(error) : resolve(list);
             });
         });
     }
@@ -61,11 +54,7 @@ export default class TokenRepository {
     public getByKey(key: string): Promise<string> {
         return new Promise((resolve , reject) => {
             this.redisClient.get(key, (error, result) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(result);
-                }
+                error ? reject(error) : resolve(result);
             });
         });
     }
@@ -73,16 +62,12 @@ export default class TokenRepository {
     public deleteByKey(key: string): Promise<boolean> {
         return new Promise((resolve, reject) => {
             this.redisClient.del(key, (error, result) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(!!result);
-                }
+                error ? reject(error) : resolve(!!result);
             });
         });
     }
 
-    private getUserKey(user: User, withTimestamp = false) {
+    private getUserKey(user: User, withTimestamp = false): string {
         let userHash = md5(user.email + user.id);
 
         if (withTimestamp) {

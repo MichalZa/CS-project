@@ -1,13 +1,12 @@
 import { ExpressErrorMiddlewareInterface, Middleware } from 'routing-controllers';
-import { Inject } from 'typedi';
+
 import ErrorHandler from './../common/error/ErrorHandler';
 
 @Middleware({ type: 'after' })
 export default class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {
-    @Inject()
-    private errorHandler: ErrorHandler;
+    constructor(private errorHandler: ErrorHandler) {}
 
-    public error(error: any, request: Express.Request, response: Express.Response, next: (err: any) => any) {
+    public error(error: any, request: Express.Request, response: Express.Response, next: (err: any) => any): void {
         this.errorHandler.handle(error);
     }
 }

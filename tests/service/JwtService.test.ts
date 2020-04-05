@@ -14,6 +14,9 @@ describe('Jwt Service test', () => {
 
     let user: User;
 
+    // load config cause we need signature
+    loadConfig();
+
     beforeEach(() => {
         tokenRepository = new TokenRepository();
         userRepository = new UserRepository();
@@ -21,9 +24,6 @@ describe('Jwt Service test', () => {
         user = new User();
         user.id = 10;
         user.email = 'email@email.com';
-
-        // load config cause we need signature
-        loadConfig();
     });
 
     it('create token success', async () => {

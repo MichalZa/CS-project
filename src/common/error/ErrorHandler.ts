@@ -1,25 +1,24 @@
-import { Inject, Service } from 'typedi';
+import { Service } from 'typedi';
 import { Logger } from 'winston';
+
 import AppError from './type/AppError';
 
 @Service()
 export default class ErrorHandler {
+    constructor(private logger: Logger) {}
 
-    @Inject('logger')
-    private readonly logger: Logger;
-
-    public handle(error: any, isOperational: boolean = true) {
+    public handle(error: any, isOperational: boolean = true): void {
         this.logger.error(JSON.stringify(error, Object.getOwnPropertyNames(error)));
         this.crashVerify(error, isOperational);
     }
 
-    private async crashVerify(error: Error, isOperational: boolean) {
+    private crashVerify(error: Error, isOperational: boolean): void {
         if (!isOperational || (error instanceof AppError && !error.isOperational)) {
             this.crash();
         }
     }
 
-    private crash() {
+    private crash(): void {
         process.exit(1);
     }
 }
