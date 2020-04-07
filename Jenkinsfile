@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo npm -v
                 echo 'Building..'
             }
         }
