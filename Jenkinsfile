@@ -1,10 +1,12 @@
 pipeline {
     agent any
 
+    tools {nodejs "node"}
+
     stages {
         stage('Build') {
             steps {
-                echo npm -v
+                sh 'npm config ls'
                 echo 'Building..'
             }
         }
