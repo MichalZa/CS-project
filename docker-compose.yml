@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     environment:
       - DEBUG=express:*
-    command: nodemon --inspect=0.0.0.0:9229 src/server.ts
+    command: npm run dev
     depends_on:
       mysql:
         condition: service_healthy

@@ -1,30 +1,24 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+import { BaseEntity, Column, Entity, Index, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+
 import Comment from './Comment';
 import User from './User';
 
 @Entity()
-export default class Project {
-
+export default class Project extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
     @Column({
         type: 'varchar',
-        name: 'title',
         length: 255,
     })
     public title: string;
 
-    @Column({
-        type: 'text',
-        name: 'description',
-    })
+    @Column({ type: 'text' })
     public description: string;
 
-    @Column({
-        type: 'integer',
-        name: 'status',
-    })
+    @Index('status-idx')
+    @Column({ type: 'integer' })
     public status: number;
 
     @Column({

@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt-nodejs';
 import { NotFoundError, UnauthorizedError } from 'routing-controllers';
 import * as sinon from 'sinon';
+
 import AppError from '../../src/common/error/type/AppError';
 import AuthLoginDto from '../../src/dto/AuthLoginDto';
 import AuthRegisterDto from '../../src/dto/AuthRegisterDto';
@@ -35,7 +36,7 @@ describe('Auth Service test', () => {
     it('register fail - user already exists', () => {
         sinon.mock(userRepository).expects('exists').withArgs(authRegisterDto.email).returns(true);
 
-        authService = new AuthService(userRepository, jwtService);
+        authService = new AuthService(jwtService, userRepository);
 
         expect(authService.register(authRegisterDto)).rejects.toEqual(new AppError('User already exists!'));
     });
@@ -49,7 +50,7 @@ describe('Auth Service test', () => {
         sinon.mock(userRepository).expects('exists').once().returns(false);
         sinon.mock(userRepository).expects('save').once().returns(returnResult);
 
-        authService = new AuthService(userRepository, jwtService);
+        authService = new AuthService(jwtService, userRepository);
 
         const register = await authService.register(authRegisterDto);
 
@@ -59,7 +60,7 @@ describe('Auth Service test', () => {
     it('login fail - user does not exist', () => {
         sinon.mock(userRepository).expects('findOneOrFail').withArgs({ email: authLoginDto.email }).rejects();
 
-        const authService = new AuthService(userRepository, jwtService);
+        const authService = new AuthService(jwtService, userRepository);
 
         expect(authService.login(authLoginDto)).rejects.toEqual(new NotFoundError('User does not exist'));
     });
@@ -70,7 +71,7 @@ describe('Auth Service test', () => {
 
         sinon.mock(userRepository).expects('findOneOrFail').once().resolves(user);
 
-        const authService = new AuthService(userRepository, jwtService);
+        const authService = new AuthService(jwtService, userRepository);
 
         authLoginDto.password = 'invalidPassword';
 
@@ -86,7 +87,7 @@ describe('Auth Service test', () => {
         sinon.mock(userRepository).expects('findOneOrFail').once().resolves(user);
         sinon.mock(jwtService).expects('createToken').once().returns(token);
 
-        const authService = new AuthService(userRepository, jwtService);
+        const authService = new AuthService(jwtService, userRepository);
         const login = await authService.login(authLoginDto);
 
         expect(login).toStrictEqual({ token });
@@ -96,7 +97,7 @@ describe('Auth Service test', () => {
         sinon.mock(jwtService).expects('verifyToken').once().returns(true);
         sinon.mock(jwtService).expects('flushToken').once().returns(true);
 
-        const authService = new AuthService(userRepository, jwtService);
+        const authService = new AuthService(jwtService, userRepository);
 
         const logout: object = await authService.logout('token');
 

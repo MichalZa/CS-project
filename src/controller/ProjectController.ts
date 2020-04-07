@@ -23,11 +23,10 @@ import ProjectService from './../service/ProjectService';
 @UseBefore(AuthMiddleware)
 @JsonController('/project')
 export default class ProjectController {
-
-    @Inject()
-    private readonly projectService: ProjectService;
-    @Inject()
-    private readonly commentService: CommentService;
+    constructor(
+        private projectService: ProjectService,
+        private commentService: CommentService,
+    ) {}
 
     @Authorized('ROLE_OWNER')
     @HttpCode(201)

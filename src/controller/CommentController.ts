@@ -8,7 +8,6 @@ import {
     Put,
     UseBefore,
  } from 'routing-controllers';
-import { Inject } from 'typedi';
 import CommentDto from '../dto/CommentDto';
 import User from '../entity/User';
 import AuthMiddleware from './../middleware/AuthMiddleware';
@@ -17,9 +16,7 @@ import CommentService from './../service/CommentService';
 @UseBefore(AuthMiddleware)
 @JsonController('/comment')
 export default class CommentController {
-
-    @Inject()
-    private readonly commentService: CommentService;
+    constructor(private commentService: CommentService) {}
 
     @Put('/:id')
     public update(@Param('id') id: number, @Body() data: CommentDto, @CurrentUser() user: User) {

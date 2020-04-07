@@ -1,17 +1,14 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+
 import Project from './Project';
 import User from './User';
 
 @Entity()
-export default class Comment {
-
+export default class Comment extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({
-        type: 'text',
-        name: 'content',
-    })
+    @Column({ type: 'text' })
     public content: string;
 
     @Column({

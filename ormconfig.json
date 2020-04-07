@@ -1,21 +1,13 @@
 {
    "type": "mysql",
-   "host": "mysql_host",
+   "host": "mysql",
    "port": 3306,
    "username": "rower",
    "password": "rower",
    "database": "cs_project",
    "synchronize": true,
    "logging": false,
-   "entities": [
-      "src/entity/**/*.ts"
-   ],
    "migrations": [
-      "src/migration/**/*.ts"
-   ],
-   "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
-   }
+      "src/migration/*.{js,ts}"
+   ]
 }
