@@ -8,9 +8,11 @@ pipeline {
     }
 
     stages {
-      stage("Dependencies") {
-        steps {
-          installDependencies()
+      docker.image('angular/ngcontainer').inside {
+        stage("Dependencies") {
+          steps {
+            installDependencies()
+          }
         }
       }
       stage("Test") {
