@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    tools {nodejs "node"}
+
+    stages {
+      installDependencies()
+      runTests()
+      runLint()
+    }
+}
+
+frontend_project_dir = "v3"
+
+def installDependencies() {
+  stage("Dependencies") {
+    sh "cd ${frontend_project_dir} && npm install"
+  }
+}
+
+def runTests() {
+  stage("Test") {
+    sh "cd ${frontend_project_dir} && npm run tst"
+  }
+}
+
+def runLint() {
+  stage("Lint") {
+    sh "cd ${frontend_project_dir} && npm run lint"
+  }
+}
