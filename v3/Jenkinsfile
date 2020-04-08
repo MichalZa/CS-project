@@ -2,6 +2,10 @@ pipeline {
     agent any
 
     tools {nodejs "node"}
+    
+    environment {
+      FRONTEND_PROJECT_DIR = "v3"
+    }
 
     stages {
       stage("Dependencies") {
@@ -22,16 +26,14 @@ pipeline {
   }
 }
 
-frontend_project_dir = "v3"
-
 def installDependencies() {
-  sh "cd ${frontend_project_dir} && npm install"
+  sh "cd ${FRONTEND_PROJECT_DIR} && npm install"
 }
 
 def runTests() {
-  sh "cd ${frontend_project_dir} && npm run tst"
+  sh "cd ${FRONTEND_PROJECT_DIR} && npm run tst"
 }
 
 def runLint() {
-  sh "cd ${frontend_project_dir} && npm run lint"
+  sh "cd ${FRONTEND_PROJECT_DIR} && npm run lint"
 }
