@@ -4,28 +4,28 @@ pipeline {
     tools {nodejs "node"}
 
     stages {
-      installDependencies()
-      runTests()
-      runLint()
+      stage("Dependencies") {
+        installDependencies()
+      }
+      stage("Test") {
+        runTests()
+      }
+      stage("Lint") {
+        runLint()
+      }
     }
 }
 
 frontend_project_dir = "v3"
 
 def installDependencies() {
-  stage("Dependencies") {
-    sh "cd ${frontend_project_dir} && npm install"
-  }
+  sh "cd ${frontend_project_dir} && npm install"
 }
 
 def runTests() {
-  stage("Test") {
-    sh "cd ${frontend_project_dir} && npm run tst"
-  }
+  sh "cd ${frontend_project_dir} && npm run tst"
 }
 
 def runLint() {
-  stage("Lint") {
-    sh "cd ${frontend_project_dir} && npm run lint"
-  }
+  sh "cd ${frontend_project_dir} && npm run lint"
 }
