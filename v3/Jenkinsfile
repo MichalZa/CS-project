@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+      docker { image 'angular/ngcontainer' }
+    }
 
     tools {nodejs "node"}
     
@@ -8,11 +10,9 @@ pipeline {
     }
 
     stages {
-      docker.image('angular/ngcontainer').inside {
-        stage("Dependencies") {
-          steps {
-            installDependencies()
-          }
+      stage("Dependencies") {
+        steps {
+          installDependencies()
         }
       }
       stage("Test") {
