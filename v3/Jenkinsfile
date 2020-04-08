@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-      docker { image 'angular/ngcontainer' }
-    }
+    agent any
 
     tools {nodejs "node"}
     
