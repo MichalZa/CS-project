@@ -1,5 +1,7 @@
 node {
-    docker.image('markadams/chromium-xvfb-js').withRun('-it --entrypoint=/bin/bash') {
+  checkout scm
+
+  docker.image('markadams/chromium-xvfb-js').withRun('-it --entrypoint=/bin/bash') {
       stage('NPM Install') {
           sh 'ls'
       }
