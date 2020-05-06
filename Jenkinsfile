@@ -1,11 +1,11 @@
 node {
     docker.image('markadams/chromium-xvfb-js').withRun('-it --entrypoint=/bin/bash') {
       stage('NPM Install') {
-          sh 'npm install'
+          sh 'ls'
       }
 
       stage('Test') {
-          sh 'npm run test'
+          //sh 'npm run test'
       }
 
       stage('Lint') {
