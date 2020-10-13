@@ -1,24 +1,17 @@
-pipeline {
-    agent any
+node {
+  checkout scm
 
-    tools {nodejs "node"}
+  docker.image('markadams/chromium-xvfb-js').withRun('-it --entrypoint=/bin/bash') {
+      stage('NPM Install') {
+          sh 'ls'
+      }
 
-    stages {
-        stage('Build') {
-            steps {
-                sh 'npm -v'
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+      stage('Test') {
+          //sh 'npm run test'
+      }
+
+      stage('Lint') {
+          sh 'npm run lint'
+      }
     }
 }
